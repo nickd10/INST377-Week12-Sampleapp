@@ -14,6 +14,10 @@ const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey);
 
+app.get('/', (req, res) => {
+    res.sendFile('public/Week12-Customers.html', { root: __dirname });
+  });
+
 app.get('/customers', async (req, res) => {
   console.log('Fetching customers...');
 
