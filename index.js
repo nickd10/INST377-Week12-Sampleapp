@@ -22,14 +22,17 @@ app.get('/customers', async (req, res) => {
   console.log('Fetching customers...');
 
   const { data, error } = await supabase.from('customer').select()
+  console.log(error);
 
+
+  console.log(data);
   if (error) {
     console.log(`Error: ${error}`)
     res.send(error)
+  } else { 
+    console.log("About to send");
+    res.send(data);
   }
-
-
-  res.send(data);
 });
 
 app.post('/customer', async (req, res) => {

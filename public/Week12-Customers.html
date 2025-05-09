@@ -4,7 +4,54 @@
         <sctipt src="Week12-Customers.js"></script>
     </head>
 
-    <body>
+    <body onload="loadCustomerData()">
         <h1>Our Customers</h1>
+        
     </body>
+    <script>
+            async function loadCustomerData() {
+            console.log('Loading customer data...');
+            await fetch(`/customers`)
+            .then((result) => result.json())
+            .then((resultJson) => {
+                console.log(resultJson);
+                const table = document.createElement('table');
+                table.setAttribute('id', 'customerInfo');
+        
+                const tableRow = document.createElement('tr');
+        
+                const tableHeadingFirstName = document.createElement('th');
+                tableHeadingFirstName.innerHTML = 'First Name';
+                tableRow.appendChild(tableHeadingFirstName);
+        
+                const tableHeadingLastName = document.createElement('th');
+                tableHeadingLastName.innerHTML = 'Last Name';
+                tableRow.appendChild(tableHeadingLastName);
+        
+                const tableHeadingState = document.createElement('th');
+                tableHeadingState.innerHTML = 'State';
+                tableRow.appendChild(tableHeadingState);
+        
+                table.appendChild(tableRow);
+                
+                resultJson.forEach((customer) => {
+                    const customerTableRow = document.createElement('tr');
+                    const customerTableFirstName = document.createElement('td');
+                    const customerTableLastName = document.createElement('td');
+                    const customerTableSate = document.createElement('td');
+                    
+                    customerTableFirstName.innerHTML = customer.customer_first_name;
+                    customerTableLastName.innerHTML = customer.customer_last_name;
+                    customerTableSate.innerHTML = customer.customer_state;
+
+                    customerTableRow.appendChild(customerTableFirstName);
+                    customerTableRow.appendChild(customerTableLastName);
+                    customerTableRow.appendChild(customerTableSate);
+                    table.appendChild(customerTableRow);
+                });
+
+                document.body.appendChild(table);
+            });
+        }
+    </script>
 </html>
